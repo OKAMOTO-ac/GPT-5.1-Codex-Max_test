@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>スケジュール管理</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <header>
+      <div class="header__content">
+        <h1>スケジュール管理</h1>
+        <p>予定の追加・編集・削除を簡単に行えます。</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="form-card">
+        <h2>予定の作成 / 編集</h2>
+        <form id="event-form">
+          <input type="hidden" id="event-id" name="event-id" />
+          <div class="form-group">
+            <label for="title">タイトル</label>
+            <input id="title" name="title" type="text" placeholder="チームミーティング" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="start_time">開始日時</label>
+              <input id="start_time" name="start_time" type="datetime-local" required />
+            </div>
+            <div class="form-group">
+              <label for="end_time">終了日時</label>
+              <input id="end_time" name="end_time" type="datetime-local" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description">詳細</label>
+            <textarea id="description" name="description" rows="3" placeholder="場所や参加者を記載"></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="primary">保存</button>
+            <button type="button" id="cancel-edit" class="ghost" hidden>キャンセル</button>
+          </div>
+          <p id="form-message" role="status"></p>
+        </form>
+      </section>
+
+      <section class="list-card">
+        <div class="list-header">
+          <h2>予定一覧</h2>
+          <button type="button" id="refresh" class="ghost">最新の状態に更新</button>
+        </div>
+        <div id="event-list" class="event-list" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
